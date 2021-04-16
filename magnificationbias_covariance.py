@@ -113,6 +113,7 @@ class magnificationbias_covariance:
             zl_list = [zl_list]
             
         l_sparse = np.logspace(np.log10(min(self.l)), np.log10(max(self.l)), 150)
+        zmin = 1e-4 # min redshift for chi integration
         
         # C_gs
         self.C_gs = []
@@ -125,7 +126,7 @@ class magnificationbias_covariance:
         # C_ls
         self.C_ls = []
         for zl in zl_list:
-            z = np.linspace(1e-3, zl, 100)
+            z = np.linspace(zmin, zl, 100)
             x = self.get_x(z)
             C_ls = []
             for l in l_sparse:
@@ -134,7 +135,7 @@ class magnificationbias_covariance:
             self.C_ls.append(ius(l_sparse,np.array(C_ls))(self.l))
         # C_ss
         C_ss = []
-        z = np.linspace(1e-3, zs, 100)
+        z = np.linspace(zmin, zs, 100)
         x = self.get_x(z)
         for l in l_sparse:
             integrand = self.lensing_kernel(z, zs)**2 / x**2 * np.diag(self.Pmm_interp(l/x, z)) # interp2d ok ?
@@ -164,7 +165,7 @@ class magnificationbias_covariance:
             for j in range(i+1):
                 zl2 = zl_list[j]
                 zlmin = min([zl1,zl2])
-                z = np.linspace(1e-3, zlmin, 100)
+                z = np.linspace(zmin, zlmin, 100)
                 x = self.get_x(z)
                 C_ll = []
                 for l in l_sparse:
