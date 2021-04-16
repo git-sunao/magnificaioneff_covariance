@@ -129,7 +129,7 @@ class magnificationbias_covariance:
             x = self.get_x(z)
             C_ls = []
             for l in l_sparse:
-                integrand = self.lensing_kernel(z, zl)*self.lensing_kernel(np.array([zl]), zs) / x**2 * np.diag(self.Pmm_interp(l/x, z))
+                integrand = self.lensing_kernel(z, zl)*self.lensing_kernel(z, zs) / x**2 * np.diag(self.Pmm_interp(l/x, z))
                 C_ls.append(simps(integrand, x))
             self.C_ls.append(ius(l_sparse,np.array(C_ls))(self.l))
         # C_ss
