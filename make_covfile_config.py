@@ -15,7 +15,7 @@ def make_covfile_config(config_filename):
     p = json.load(open(config_filename, 'r'), object_pairs_hook=OrderedDict)
     p['observables']['lensing']['rmin'] = [1e-3, 1e-3, 1e-3]
     p['observables']['lensing']['rmax'] = [100, 100, 100]
-    temp_config_filename = os.path.join(os.path.dirname(__file__),'config_temp.json')
+    temp_config_filename = os.path.join(os.path.dirname(config_filename),'config_temp.json')
     json.dump(p, open(temp_config_filename, 'w'))
     
     # get config
