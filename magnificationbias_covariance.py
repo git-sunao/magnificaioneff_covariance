@@ -14,8 +14,8 @@ class magnificationbias_covariance:
         if self.galaxy_model == 'hod':
             self.hod= model_hod.darkemu_x_hod()
         self.set_cosmology()
-        self.k = np.logspace(-5.0, 2, 200)
-        self.l = np.logspace(-1, 4.0, 10000)
+        self.k = np.logspace(-5.0, 2, 400)
+        self.l = np.logspace(-1, 4.0, 1000)
         
         self.Cls = []
         self.Cll = []
@@ -251,6 +251,22 @@ class magnificationbias_covariance:
             ax2.set_ylim((1e-7,2.0))
             ax2.set_ylabel('relative contribution \n (for colored lines)')
             ax2.legend(fontsize=15, bbox_to_anchor=(0.5, 0.0), loc='lower center')
+            
+            s = []
+            s.append(self.C_gs[i]*2.0*(alpha_j-1.0)*self.C_ls[j])
+            s.append(2.0*(alpha_i-1.0)*self.C_ls[i]*self.C_gs[j])
+            s.append((2.0*(alpha_j-1.0)*self.C_gl[i][j]+2.0*(alpha_i-1.0)*self.C_gl[j][i]) * (self.C_ss+self.shape_noise))
+            s.append(4.0*(alpha_i-1.0)*(alpha_j-1.0) * self.C_ll[i][j]*(self.C_ss+self.shape_noise))
+            s.append(4.0*(alpha_i-1.0)*(alpha_j-1.0) * self.C_ls[i]*self.C_ls[j])
+            fig,ax = plt.subplots(1,1)
+            ax.set_yscale('log')
+            ax.set_xscale('log')
+            ax.set_xlabel(r'$l$')
+            ax.plot(self.l, C_sum,alpha=0.5, label=r'$\sum {\rm C}$')
+            label = [r'$C_{\rm gs}[1]C_{\rm ls}[2]$', r'$C_{\rm gs}[2]C_{\rm ls}[1]$', r'$C_{\rm gl}C_{\rm ss}$', r'$C_{\rm ll}C_{\rm ss}$', r'$C_{\rm ls}[1]C_{\rm ls}[2]$']
+            for k in range(5):
+                ax.plot(self.l, s[k], label=label[k])
+            ax.legend(fontsize=15)
             plt.show()
             
         if show_order:
@@ -282,7 +298,8 @@ class magnificationbias_covariance:
             s.append(max(4.0*(alpha_i-1.0)*(alpha_j-1.0) * self.C_ll[i][j]*(self.C_ss+self.shape_noise)))
             s.append(max(4.0*(alpha_i-1.0)*(alpha_j-1.0) * self.C_ls[i]*self.C_ls[j]))
             label = ['C_gs[1] * C_ls[2]', 'C_gs[2] * C_ls[1]', 'C_gl * C_ss', 'C_ll * C_ss', 'C_ls[1] * C_ls[2]']
-            print('max summand = %s = %e'%(label[np.where(np.array(s)==max(s))[0][0]], max(s)))
+            print('max summand = %s = %.4e'%(label[np.where(np.array(s)==max(s))[0][0]], max(s)))
+            print('  c.f. : ', [', %s=%.4e'%(label[k], s[k]) for k in range(5)])
             
         return ans
     
