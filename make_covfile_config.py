@@ -85,15 +85,53 @@ def make_covfile_config(config_filename):
             full_path = os.path.join(os.path.join(config.working_dir,filename))
             sub_mat = cov_full[i*nr:(i+1)*nr, j*nr:(j+1)*nr]
             print('saved (%d,%d) submatrix of lensing covariance to %s'%(i,j,full_path))
-            np.savetxt(full_path, dcov[i*nr:(i+1)*nr, j*nr:(j+1)*nr])
+            np.savetxt(full_path, sub_mat)
             
     # save new config to working dir with suffix(_mag) appended
     new_config_filename = config_filename.replace('.json', '_mag.json')
+    print('new config file to ',new_config_filename)
     json.dump(new_config, open(os.path.join(new_config_filename), 'w'), ensure_ascii=False, indent=4)
     
     # show time
     t1 = time.time()
     print('time : %d sec'%(t1-t0))
+    
+    # plot
+    if True:
+        import matplotlib.pyplot as plt
+        samples = ['LOWZ', 'CMASS1', 'CMASS2']
+        r1 = copy.deepcopy(dcov+cov_lens)
+        r2 = copy.deepcopy(cov_lens)
+        for i in range(r1.shape[0]):
+            for j in range(r1.shape[0]):
+                r1[i][j] /= ((dcov+cov_lens)[i][i] * (dcov+cov_lens)[j][j])**0.5
+                r2[i][j] /= ((cov_lens)[i][i] * (cov_lens)[j][j])**0.5
+        dr = r1-r2
+        fig, ax = plt.subplots(figsize=(10,10))
+        #fig.suptitle(r'$r_{ij}^{\rm full} - r_{ij}$', y=0.92)
+        #im = ax.imshow(dr, cmap='Blues', vmin=0, vmax=0.1)
+        im = ax.imshow(r1, cmap='Blues')
+        cbar = fig.colorbar(im)
+        #cbar.ax.set_ylabel(r'$r_{ij}^{\rm full} - r_{ij}$')
+        ax_pos = ax.get_position()
+        cbar_pos0 = cbar.ax.get_position()
+        cbar_pos1 = [cbar_pos0.x0, ax_pos.y0, cbar_pos0.x1 - cbar_pos0.x0, ax_pos.y1 - ax_pos.y0]
+        cbar.ax.set_position(cbar_pos1)
+        for i in range(n):
+            ax.axhline(i*nr-0.5, color='k')
+            ax.axvline(i*nr-0.5, color='k')
+        plt.setp(ax.get_xticklabels(), visible=False)
+        plt.setp(ax.get_yticklabels(), visible=False)
+        ax.tick_params(axis='both', which='minor', length=0)
+        ax.tick_params(axis='both', which='major', length=0)
+        for i in range(n):
+            ax.text((i+0.5)*nr, -1, samples[i], ha="center", va="bottom")
+            ax.text(-1, (i+0.5)*nr, samples[i], ha="right", va="center", rotation=90)
+        for i in range(n):
+            ax.text(0 +i*nr    , nr*n+1, r'$R_{\rm min}$', ha='left' , va='top',fontsize=15)
+            ax.text(nr+i*nr-1.0, nr*n+1, r'$R_{\rm max}$', ha='right', va='top',fontsize=15)
+        #fig.savefig('fig_temp.pdf')
+        fig.savefig('fig_temp2.pdf')
     
     
     

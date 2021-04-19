@@ -1,0 +1,554 @@
+{
+    "observables": {
+        "lensing": {
+            "type": "2pt",
+            "measurement_assumption": {
+                "Omega_m0": 0.279,
+                "w0": -1.0,
+                "sum_wls_filename": [
+                    "../meas/gglens/bossdr11-hsc-pzcut-lowz/Dsigma.dat",
+                    "../meas/gglens/bossdr11-hsc-pzcut-cmass1/Dsigma.dat",
+                    "../meas/gglens/bossdr11-hsc-pzcut-cmass2/Dsigma.dat"
+                ],
+                "sum_wls_columnname": [
+                    "2Sumwls",
+                    "2Sumwls",
+                    "2Sumwls"
+                ],
+                "source_zbin_filename": [
+                    "../meas/gglens/pz_pdf_bins_mlz.fits",
+                    "../meas/gglens/pz_pdf_bins_mlz.fits",
+                    "../meas/gglens/pz_pdf_bins_mlz.fits"
+                ],
+                "sumwlssigcritinvPz_filename": [
+                    "../meas/gglens/bossdr11-hsc-pzcut-lowz/sumwlssigcritinvPz.fits",
+                    "../meas/gglens/bossdr11-hsc-pzcut-cmass1/sumwlssigcritinvPz.fits",
+                    "../meas/gglens/bossdr11-hsc-pzcut-cmass2/sumwlssigcritinvPz.fits"
+                ]
+            },
+            "redshift": [
+                0.2607,
+                0.5106,
+                0.6264
+            ],
+            "rmin": [
+                3.0,
+                3.0,
+                3.0
+            ],
+            "rmax": [
+                30.0,
+                30.0,
+                30.0
+            ],
+            "filename_signal": [
+                "data/dSigma_msel_r_corr_sig_z000.dat",
+                "data/dSigma_msel_r_corr_sig_z001.dat",
+                "data/dSigma_msel_r_corr_sig_z002.dat"
+            ],
+            "filename_covariance": [
+                "data/dSigma_cov_z000_z000.dat",
+                "data/dSigma_cov_z000_z001.dat",
+                "data/dSigma_cov_z000_z002.dat",
+                "data/dSigma_cov_z001_z000.dat",
+                "data/dSigma_cov_z001_z001.dat",
+                "data/dSigma_cov_z001_z002.dat",
+                "data/dSigma_cov_z002_z000.dat",
+                "data/dSigma_cov_z002_z001.dat",
+                "data/dSigma_cov_z002_z002.dat"
+            ]
+        },
+        "clustering": {
+            "type": "2pt",
+            "measurement_assumption": {
+                "Omega_m0": 0.279,
+                "w0": -1.0
+            },
+            "redshift": [
+                0.2607,
+                0.5106,
+                0.6264
+            ],
+            "rmin": [
+                2.0,
+                2.0,
+                2.0
+            ],
+            "rmax": [
+                30.0,
+                30.0,
+                30.0
+            ],
+            "filename_signal": [
+                "data/wp_sig_z000.dat",
+                "data/wp_sig_z001.dat",
+                "data/wp_sig_z002.dat"
+            ],
+            "filename_covariance": [
+                "data/wp_cov_z000_z000.dat",
+                "data/wp_cov_z000_z001.dat",
+                "data/wp_cov_z000_z002.dat",
+                "data/wp_cov_z001_z000.dat",
+                "data/wp_cov_z001_z001.dat",
+                "data/wp_cov_z001_z002.dat",
+                "data/wp_cov_z002_z000.dat",
+                "data/wp_cov_z002_z001.dat",
+                "data/wp_cov_z002_z002.dat"
+            ]
+        }
+    },
+    "model_parameter": {
+        "cosmology": {
+            "omega_b": {
+                "do_sample": true,
+                "initial_guess": 0.02225,
+                "prior": {
+                    "type": "gauss",
+                    "mu": 0.02268,
+                    "sigma": 0.00038,
+                    "lower": 0.02025,
+                    "upper": 0.02425
+                }
+            },
+            "omega_c": {
+                "do_sample": true,
+                "initial_guess": 0.1198,
+                "prior": {
+                    "type": "flat",
+                    "lower": 0.0998,
+                    "upper": 0.1398
+                }
+            },
+            "Omega_de": {
+                "do_sample": true,
+                "initial_guess": 0.6844,
+                "prior": {
+                    "type": "flat",
+                    "lower": 0.4594,
+                    "upper": 0.9094
+                }
+            },
+            "ln10p10As": {
+                "do_sample": true,
+                "initial_guess": 3.094,
+                "prior": {
+                    "type": "flat",
+                    "lower": 1,
+                    "upper": 5
+                }
+            },
+            "ns": {
+                "do_sample": true,
+                "initial_guess": 0.9645,
+                "prior": {
+                    "type": "gauss",
+                    "mu": 0.9649,
+                    "sigma": 0.0126,
+                    "lower": 0.8645,
+                    "upper": 1.0645
+                }
+            },
+            "w_de": {
+                "do_sample": false,
+                "initial_guess": -1.0,
+                "prior": {
+                    "type": "flat",
+                    "lower": -1.2,
+                    "upper": -0.8
+                }
+            }
+        },
+        "HOD": {
+            "logMmin": {
+                "do_sample": [
+                    true,
+                    true,
+                    true
+                ],
+                "initial_guess": [
+                    13.6249,
+                    13.9383,
+                    14.1866
+                ],
+                "prior": {
+                    "type": [
+                        "flat",
+                        "flat",
+                        "flat"
+                    ],
+                    "lower": [
+                        12.0,
+                        12.0,
+                        12.0
+                    ],
+                    "upper": [
+                        14.5,
+                        14.5,
+                        14.5
+                    ]
+                }
+            },
+            "sigma_sq": {
+                "do_sample": [
+                    true,
+                    true,
+                    true
+                ],
+                "initial_guess": [
+                    0.478133,
+                    0.627062,
+                    0.785023
+                ],
+                "prior": {
+                    "type": [
+                        "flat",
+                        "flat",
+                        "flat"
+                    ],
+                    "lower": [
+                        0.01,
+                        0.01,
+                        0.01
+                    ],
+                    "upper": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "logM1": {
+                "do_sample": [
+                    true,
+                    true,
+                    true
+                ],
+                "initial_guess": [
+                    14.4237,
+                    14.4857,
+                    14.8485
+                ],
+                "prior": {
+                    "type": [
+                        "flat",
+                        "flat",
+                        "flat"
+                    ],
+                    "lower": [
+                        12.0,
+                        12.0,
+                        12.0
+                    ],
+                    "upper": [
+                        16.0,
+                        16.0,
+                        16.0
+                    ]
+                }
+            },
+            "alpha": {
+                "do_sample": [
+                    true,
+                    true,
+                    true
+                ],
+                "initial_guess": [
+                    0.916827,
+                    1.19196,
+                    0.982605
+                ],
+                "prior": {
+                    "type": [
+                        "flat",
+                        "flat",
+                        "flat"
+                    ],
+                    "lower": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ],
+                    "upper": [
+                        3.0,
+                        3.0,
+                        3.0
+                    ]
+                }
+            },
+            "kappa": {
+                "do_sample": [
+                    true,
+                    true,
+                    true
+                ],
+                "initial_guess": [
+                    0.509615,
+                    0.600692,
+                    0.0665054
+                ],
+                "prior": {
+                    "type": [
+                        "flat",
+                        "flat",
+                        "flat"
+                    ],
+                    "lower": [
+                        0.01,
+                        0.01,
+                        0.01
+                    ],
+                    "upper": [
+                        3.0,
+                        3.0,
+                        3.0
+                    ]
+                }
+            }
+        },
+        "off_centering": {
+            "poff": {
+                "do_sample": [
+                    false,
+                    false,
+                    false
+                ],
+                "initial_guess": [
+                    0.1,
+                    0.1,
+                    0.1
+                ],
+                "prior": {
+                    "type": [
+                        "flat",
+                        "flat",
+                        "flat"
+                    ],
+                    "lower": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "upper": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            },
+            "Roff": {
+                "do_sample": [
+                    false,
+                    false,
+                    false
+                ],
+                "initial_guess": [
+                    0.1846787452,
+                    0.1846787452,
+                    0.1846787452
+                ],
+                "prior": {
+                    "type": [
+                        "flat",
+                        "flat",
+                        "flat"
+                    ],
+                    "lower": [
+                        0.01,
+                        0.01,
+                        0.01
+                    ],
+                    "upper": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "satellite_distribution": {
+            "Rc": {
+                "do_sample": [
+                    false,
+                    false,
+                    false
+                ],
+                "initial_guess": [
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "prior": {
+                    "type": [
+                        "flat",
+                        "flat",
+                        "flat"
+                    ],
+                    "lower": [
+                        0.01,
+                        0.01,
+                        0.01
+                    ],
+                    "upper": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "incompleteness": {
+            "alpha_inc": {
+                "do_sample": [
+                    false,
+                    false,
+                    false
+                ],
+                "initial_guess": [
+                    0.1,
+                    0.1,
+                    0.1
+                ],
+                "prior": {
+                    "type": [
+                        "flat",
+                        "flat",
+                        "flat"
+                    ],
+                    "lower": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "upper": [
+                        5.0,
+                        5.0,
+                        5.0
+                    ]
+                }
+            },
+            "logM_inc": {
+                "do_sample": [
+                    false,
+                    false,
+                    false
+                ],
+                "initial_guess": [
+                    12.5,
+                    12.5,
+                    12.5
+                ],
+                "prior": {
+                    "type": [
+                        "flat",
+                        "flat",
+                        "flat"
+                    ],
+                    "lower": [
+                        12,
+                        12,
+                        12
+                    ],
+                    "upper": [
+                        15.3,
+                        15.3,
+                        15.3
+                    ]
+                }
+            }
+        },
+        "nuisance": {
+            "dm": {
+                "do_sample": true,
+                "initial_guess": 0.0,
+                "prior": {
+                    "type": "gauss",
+                    "mu": 0.0,
+                    "sigma": 0.01,
+                    "lower": -0.05,
+                    "upper": 0.05
+                }
+            },
+            "dpz": {
+                "do_sample": true,
+                "initial_guess": 0.0,
+                "prior": {
+                    "type": "gauss",
+                    "mu": 0.0,
+                    "sigma": 0.1,
+                    "lower": -0.5,
+                    "upper": 0.5
+                }
+            },
+            "alpha_mag": {
+                "do_sample": [
+                    false,
+                    false,
+                    false
+                ],
+                "initial_guess": [
+                    2.259,
+                    3.563,
+                    3.729
+                ],
+                "prior": {
+                    "type": [
+                        "gaussian",
+                        "gaussian",
+                        "gaussian"
+                    ],
+                    "mu": [
+                        2.259,
+                        3.563,
+                        3.729
+                    ],
+                    "sigma": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "lower": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "upper": [
+                        4.0,
+                        4.0,
+                        4.0
+                    ]
+                }
+            }
+        }
+    },
+    "model": {
+        "sat_dist_type": [
+            "NFW",
+            "NFW",
+            "NFW"
+        ],
+        "pi_max": 100.0,
+        "rsd": true,
+        "config": {
+            "M_int_k": 5,
+            "fft_num": 1
+        },
+        "do_measurement_correction": true,
+        "do_magnification_correction": true,
+        "class": "model_hod_dswp"
+    },
+    "sampler": {
+        "type": "multinest",
+        "nwalkers": 478,
+        "nstep": 50,
+        "nbunch": 100
+    },
+    "output": {
+        "directory": "m230330wsacfprsdmcmacdmldpz_NS",
+        "chains": "chains.npy",
+        "lnp": "lnp.npy",
+        "derived_chains": "derived_chains.npy",
+        "config": "config.json",
+        "log": "log.txt",
+        "output_model": true
+    }
+}
